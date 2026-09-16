@@ -1,0 +1,55 @@
+# Hiver SDE Intern — conda environment
+# Usage:
+#   conda env create -f environment.yml
+#   conda activate hiver_sde
+#   bash scripts/install_torch.sh   # installs the cu130 nightly torch separately
+#
+# Torch is NOT listed here because conda's pip install applies --index-url globally,
+# which breaks all other PyPI packages. Install it afterwards via install_torch.sh.
+
+name: hiver_sde
+
+channels:
+  - defaults
+
+dependencies:
+  - python=3.10          # matches cryptonite (3.10.19)
+  - pip
+
+  - pip:
+    # --- Embeddings / retrieval ---
+    - sentence-transformers>=5.0         # project running
+    - faiss-cpu>=1.7                     # project running
+    - rank_bm25>=0.2.2                   # BM25 retriever                  # project running
+    - rapidfuzz>=3.0                     # dedup brand replies (>=0.95)    # project running
+
+    # --- Data / ML ---
+    - pandas>=2.0                        # CSV wrangling                   # project running
+    - numpy>=1.26                        # arrays                          # project running
+    - scikit-learn>=1.4                  # isotonic calibration, kNN       # project running
+
+    # --- LLM API clients ---
+    - google-genai>=1.0                  # Gemini provider                 # project running
+    - groq>=0.28                         # Groq provider                   # project running
+    - cerebras-cloud-sdk>=1.0            # Cerebras provider               # project running
+
+    # --- Config / secrets ---
+    - python-dotenv>=1.0                 # load .env                       # project running
+
+    # --- Evaluation ---
+    - ragas>=0.2                         # faithfulness / answer-relevance  # project running
+    - rouge-score>=0.1                   # ROUGE-L sanity check            # project running
+
+    # --- Annotation / golden set ---
+    - bibtexparser>=1.3                  # validate references.bib         # project running
+
+    # --- Testing ---
+    - pytest>=8.0                        # test suite                      # dev
+    - pytest-cov>=4.0                    # coverage                        # dev
+
+    # --- Utilities ---
+    - tqdm>=4.0                          # progress bars                   # project running
+    - tenacity>=8.0                      # retry logic in gateway          # project running
+    - httpx>=0.27                        # HTTP client (gateway backoff)   # project running
+    - scipy>=1.13                        # statistical tests               # project running
+    - matplotlib>=3.8                    # figures for report              # project running

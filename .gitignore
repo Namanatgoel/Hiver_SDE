@@ -1,0 +1,94 @@
+# === Secrets and Credentials ===
+.env
+.env*
+.env.*
+!.env.example
+kaggle.json
+credentials.json
+*.pem
+*.key
+budget_ledger.json
+
+# === Assignment Prompts and Uploads ===
+*.pdf
+uploads/
+
+# === Agent Configurations and Planning Scratchpads ===
+implementation_plan*.md
+*plan*.md
+plans/
+AGENTS.md
+.agents/
+.gemini/
+.system_generated/
+scratch/
+tmp/
+temp/
+
+# === Datasets (Too large for Git; full 3M tweets and interim pipelines) ===
+kaggle_dataset/
+data/raw/
+data/interim/
+data/processed/
+data/*.csv
+data/*.jsonl
+data/*.parquet
+data/*.zip
+data/*.tar.gz
+data/*.gz
+!data/golden/
+!data/golden/**
+
+# === Model Weights, Embeddings, and Indexes ===
+models/
+checkpoints/
+*.faiss
+*.index
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.onnx
+*.pkl
+*.pickle
+*.joblib
+
+# === Python and Build Caches ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+.pytest_cache/
+.cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+.coverage
+htmlcov/
+
+# === Environments ===
+.venv/
+venv/
+env/
+
+# === Jupyter ===
+.ipynb_checkpoints/
+
+# === Runtime Logs and Ephemeral Outputs ===
+*.log
+logs/
+wandb/
+reports/eval_results.json
+reports/figures/
+
+# === OS and IDE Files ===
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cursor/
+.claude/

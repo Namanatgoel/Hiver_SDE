@@ -1,0 +1,280 @@
+{
+  "brand": "applesupport",
+  "version": "v1",
+  "seed": 42,
+  "embedding_model": "all-MiniLM-L6-v2",
+  "k_clusters": 30,
+  "n_intents": 13,
+  "coverage": {
+    "total": 60453,
+    "mapped_non_oos": 54782,
+    "oos": 5671,
+    "coverage": 0.9061915868525963
+  },
+  "intents": [
+    {
+      "name": "battery_issues_and_drain",
+      "description": "I am experiencing rapid battery drain or need to check my device's battery health.",
+      "source_clusters": [
+        0,
+        12
+      ],
+      "exemplars": [
+        "@AppleSupport is there any way to check the battery health on my iPhone? I\u2019m getting very poor battery life recently",
+        "@115858 @ATT Apple your latest software update is slowing the speed on my phone on top of draining my battery!!!  WTF?!?  This is annoying!",
+        "@AppleSupport can you check the overall Health (battery especially) of my iphone 5s?",
+        "I been using my iPhone X since came out and the battery last less than the one on my iPhone 7 @AppleSupport @115858",
+        "@AppleSupport how do I turn on the battery % on the iPhone X?",
+        "I'd really appreciate if my Macbook Pro would stop electrocuting me whilst charging... @115858",
+        "WHY WON'T MY PHONE HOLD A FRICKIN CHARGE?! @AppleSupport @115858 @119341",
+        "Wtf is wrong with my battery? @115858",
+        "@AppleSupport even I turn on low power mode, turn off GPS, bluetooth &amp; just use wifi.Battery still dry faster than before upgrade the new OS",
+        "@82652 @115858 MINE HAS BEEN DOING THAT! And then once it completely dies it come back on and starts charging like normal. It's annoying as hell"
+      ]
+    },
+    {
+      "name": "keyboard_and_autocorrect_bugs",
+      "description": "I am having issues with typing, keyboard layouts, or autocorrect replacing text with unintended symbols.",
+      "source_clusters": [
+        3,
+        20,
+        21,
+        26,
+        27
+      ],
+      "exemplars": [
+        "I\ufe0f updated my phone, hopefully it fixes this bug that won\u2019t let me is the letter \u201cI\ufe0f\u201d",
+        "Hey @AppleSupport why does my phone turn the letter I into I\ufe0f automatically",
+        "@AppleSupport Please change the Arabic font in iOS11 to previous time.\nYou can ask all Arabic user they are will saying same thing .",
+        "Dear @115858 please do something about the \u201cI\u201d problem. We all know how dear \u201ci\u201d is for #apple itself. #iphone #ipad #ipod #imac",
+        "@AppleSupport why is my iPhone 8 making these weird things when I\ufe0f type things?",
+        "@AppleSupport #iOS11\nSo I have the 5s and I updated my phone but I can\u2019t see the new emojis when people text me. Why?",
+        "hey ios 11 thanks for not letting me type one of the most used letters of the alphabet by itself @115858 pls fix this bullshit https://t.co/Dv41jex5tP",
+        "Had to turn my #autocorrect off because my phone keeps changing \"I\" to A [?]. IDK how I ever lived without #autocorrect now \ud83d\ude2d! @115858 #HELP",
+        "Ugh my iPhone keeps replacing an i with this weird symbol. Any suggestions @applesupport",
+        "Why every time I\ufe0f type an I\ufe0f this shows up since I\ufe0f updated to iOS 11.1 @AppleSupport @115858 https://t.co/V4GefEs6Sk"
+      ]
+    },
+    {
+      "name": "software_update_and_installation_issues",
+      "description": "I am unable to update my device or am experiencing system stability issues following a software update.",
+      "source_clusters": [
+        4,
+        6,
+        23
+      ],
+      "exemplars": [
+        "Dear @115858 \n\nI purchased a phone from you. It was expensive! An IPhone 7+ &amp; ever since I updated to #ios11 - it doesn\u2019t work!\n\nSORT IT OUT\ud83d\ude21",
+        "@AppleSupport I bought last week an iphone 7. Baterry Life [ios 11.0.1] is catastrophic! Help us to regain a better autonomy! #disappointed",
+        "@115858 iOS 11 got my phone fucking up",
+        "@AppleSupport wtf is wrong with ios lately! 11.0.3 is just as bad as the previous 2 releases have you fired all the good devs! ridiculous!",
+        "Thanks @115858 for the new iOS 11.0.3 update. My 3 month old iPhone 7 is a piece of shit now. \ud83d\ude43",
+        "My phone service has been horrible especially after IOS 11 and I can\u2019t tell if it\u2019s because of @115714 or @115858",
+        "@115858 Did you even test iOS 11 before releasing it? Phone freezes all the time, carplay barely works, battery drains.  #ios11update #brick",
+        "@115858 I really hate the 11.1 release on iPhone and iPad. So many bugs. This is the worse release to come out of Cupertino. Please fix ASAP",
+        "Hey @115858 thanks for the shitty IOS update that's fucked with my podcast's. Out of order &amp; so difficult to navigate #iOS11 https://t.co/re61lGO86c",
+        "Really messed up @115858 with your software quality in IOS 11. I hope you will fix these problems. Apple music doesn't work properly. Application icon's freeze somtimes when i swipe  @AppleSupport dudes we love you. be careful while competing other tech companies."
+      ]
+    },
+    {
+      "name": "system_performance_and_freezing",
+      "description": "My device is running slowly, lagging, freezing, or becoming unresponsive.",
+      "source_clusters": [
+        7,
+        9,
+        15,
+        25
+      ],
+      "exemplars": [
+        "While I was sleeping, my iPhone 6 decided to self-destruct. Coincidence? I think not. @115858 is out here scheming",
+        "@115858 whatever you did to Spotify with the new iPhone update. Please fix it.",
+        "@115858 im bout to put this iPhone in the trash, ever since I updated it I can\u2019t make phone calls and it\u2019s glitchy af",
+        "Your new iOS update made my phone even more glitchy and slow!!!! Why!!!! @115858",
+        "@115858 I'm so disappointed. I've been a #apple lover for 10 years n i must say that my brand new #iphone with the latest update is crap.",
+        "Why can\u2019t I\ufe0f use an I\ufe0f on the new iOS update? \ud83d\ude15\ud83d\ude12 @115858",
+        "Why is my #iphone beeping like smoke alarm?! @115858 it\u2019s done it twice now! https://t.co/zFZqQYTf8f",
+        "This last IOS broke my phone @115858 you need to do something soon! It\u2019s the worst",
+        "Why is my iPhone messing up and why won\u2019t @115858 let me go to the latest beta!",
+        "@115858 are you going to do something about this AWFUL software update? My iPhone is lagging too much, applications always crash.."
+      ]
+    },
+    {
+      "name": "network_and_connectivity_issues",
+      "description": "I am having trouble connecting to Wi-Fi, Bluetooth, or cellular data.",
+      "source_clusters": [
+        11,
+        17
+      ],
+      "exemplars": [
+        "@115858 why does my Bluetooth turn on automatically every day at 5am after upgrading to iOS 11?",
+        "Hey @115858 with this new update none of my WiFi connections work...you paying? \ud83d\ude02 #fixsoonplease #googlemapstoo #everythingmessedup",
+        "There is an unbelievable wi-fi problem with \u0130phone, always Connection loss, i think loudly ,not only me face With This problem \ud83d\ude02",
+        "#iOS11 I turn my WiFi &amp; radio off cnstly  b/c both wnt stay off.  Also y every time I update Apps the settings auto default? @AppleSupport",
+        "I swear my WiFi comes on by itself... I know I\u2019m not tripping @115858",
+        "@AppleSupport I\u2019m travelling Europe and the new iOS is treating my wifi like crap. This is disappointing. I can\u2019t even connect to get beta.",
+        "Really @115858 why does the Wifi constantly turn on? Really annoying!",
+        "Yo @AppleSupport why does my iPhone keep turning wi-fi on when I want it off??",
+        "@AppleSupport Hello for some reason my Air Pods is struggling connecting to my iPhone 7 after the last update. It connects fine with my iPad",
+        "@115858 why won\u2019t IOS11 let me leave WiFi off? It\u2019s really, really irritating. Also ITunes is an unusable mess"
+      ]
+    },
+    {
+      "name": "audio_and_sound_issues",
+      "description": "I am experiencing issues with device audio, ringtones, alarms, Siri sound effects, or audio adapters.",
+      "source_clusters": [
+        1
+      ],
+      "exemplars": [
+        "Um @115858 after i updated..my phone\u2019s ringtone changed back to the basic ringtone even though it SAYS its suppose to be X-Chris Brown playing...what\u2019s going on?",
+        "@AppleSupport evening can you help Siri has lost her beep even with sound and volume up can you help the same with AirPods in nothing",
+        "@AppleSupport Why didn't my IPhone 7 come with a headset adapter?",
+        "@AppleSupport I lost that stupid converter and I can\u2019t use my headphones without it.",
+        "@AppleSupport Alarm clock sound not working and volume indicator not showing since upgrading my iPhone 6 to iOS 11.0.3. Please fix soon thx!",
+        "Yooooo @AppleSupport, my alarm does not ring/rings incredibly soft, since IOS11. How do I fix this shit ??? It does not ring on silent",
+        "@AppleSupport \u201cHey Siri\u201d doesn\u2019t work when music/audio is playing",
+        "@115858 why isnt the podcast app working on bluetooth",
+        "@AppleSupport any help with the earbuds???  It\u2019s stuck in my headphone jack https://t.co/wdY5KLg9HI",
+        "Hey @AppleSupport running iOS 11.0.2 on an iPhone 8 and my Hey Siri keeps cutting out. Can you help please? https://t.co/wRMRcfCzVd"
+      ]
+    },
+    {
+      "name": "accounts_passwords_and_security",
+      "description": "I need help with account access, password resets, locked notes, or security verification.",
+      "source_clusters": [
+        13
+      ],
+      "exemplars": [
+        "@AppleSupport I can\u2019t access my locked notes since upgrading to iPhone X. It\u2019s asking for a password which I have never set; Face ID is not working. Please advise.",
+        "@AppleSupport i right now do not have my phone on me and i need to get to my icloud email, to get in i need the verification code",
+        "@116333  Please tell your software engineers that users must have capability to reset Safari. - It should be easy for users to do that.",
+        "@AppleSupport I just received a `password reset` email that looks authentic but I didn't initiate any reset. Please advise.",
+        "Hello @AppleSupport can I have my account back plz??? Pvt msg me",
+        "@AppleSupport my ipad 2 suddenly need activation required, but apple id show there not mine, bought it new from apple store years ago https://t.co/jetoKFQQpV",
+        "@AppleSupport iPad update now stuck on page asking for password. Nothing is working! Thanks!",
+        "@AppleSupport Can't u shut down scams like appleassist(dot)me? Got a robocall that directed me to an offshore agent trying to get my iCloud.",
+        "@AppleSupport @115858 Got this email. I haven't logged in in months. Reported to phishing email for Apple just in case. Scammer? See screen shot below. Thanks! https://t.co/pf2nHkPNkk",
+        "@115858 @AppleSupport I am a stressed out customer. I am locked out of my icloud and phone and no one can help \ud83d\ude24"
+      ]
+    },
+    {
+      "name": "billing_disputes_and_purchases",
+      "description": "I have questions or concerns regarding order payments, subscription charges, discounts, or AppleCare eligibility.",
+      "source_clusters": [
+        19
+      ],
+      "exemplars": [
+        "@AppleSupport Are there any student discounts on laptops in store?",
+        "@AppleSupport in 140 chars, gimme the reqs to make me eligible for AppleCare since my wife was told we weren\u2019t eligible",
+        ".@applesupport Trying 2 copy a tracking number from an eBay email (iOS) so I can paste it into USPS app. Why do I get the entire URL?",
+        "@AppleSupport i have just had \u00a313.49 taken for a subscription to that I didn\u2019t authorise why has this happend and can i get a refund please?",
+        "@AppleSupport looks like there is a problem with the payment for my iPhone X pre-order, where can I reach out to solve it in Mexico?",
+        "@AppleSupport If I preorder an iPhone X on my Apple Upgrade Program on Friday. Can I choose when to do the upgrade or will I be given a day?",
+        "Yo @AppleSupport how do I get an appt for Genius Bar? Can\u2019t find it on the apple store app.",
+        "@AppleSupport I processed a screen replacement service on 22/10/17 and the box still hasn\u2019t arrived to post to you???",
+        "@AppleSupport I have a question regarding activating Iphone8 plus one time payment ($799) with other carrier different of AT&amp;T",
+        "Hey @AppleSupport trying to discuss my iPhone order. Computer says no. How can I get support?! https://t.co/Y4vSkNIcIT"
+      ]
+    },
+    {
+      "name": "media_and_digital_services",
+      "description": "I am having trouble syncing or playing content across iTunes, Apple Music, Podcasts, or Apple Watch media apps.",
+      "source_clusters": [
+        8,
+        28
+      ],
+      "exemplars": [
+        "Hey @115858! Original watch bought in Jan 2016 and it is coming apart. Otherwise hardly a scratch. Is this the expected lifespan, &lt;2 yrs? https://t.co/aPJomdVzlc",
+        "@AppleSupport Why do some people see an October challenge in the Apple Watch Activity app, and some of us don't? I'm on the latest IOS.",
+        "Unbelievable from @115858, watch screen seems to have popped, perfect laser like crack all around outer of screen. No impact. 6mths old 1/2",
+        "@AppleSupport is there a way to access \u201cNow Playing\u201d on watchOS without having \u201cAuto launch audio apps\u201d enabled?",
+        "@AppleSupport I paid for a season of rake, downloaded it to my iPad &amp; now I can\u2019t watch it? Unless I connect to store? Is that right ?",
+        "Apple notes has become unusable on my phone. Notes haven't synced since September, I tried turning off and on iCloud and now NONE sync.",
+        "@AppleSupport cannot add apple pay card to my Apple Watch.  Tried unpairing and pairing again.  No dice.  Just says \u201ccannot add card\u201d",
+        "@115858 any idea how much a screen replacement for an Apple Watch series 2 (38mm) is? As your custoner service don't...",
+        "There is no gap between date and time. @AppleSupport https://t.co/Pt6rX0jzNe",
+        "@AppleSupport I think there\u2019s a glitch in #watchOS4 that makes app icons in notifications not show up. I\u2019ve tried resetting,unpairing etc"
+      ]
+    },
+    {
+      "name": "mac_and_hardware_repairs",
+      "description": "I am seeking support for Mac hardware issues, computer repairs, charger defects, or warranties.",
+      "source_clusters": [
+        18
+      ],
+      "exemplars": [
+        "@AppleSupport how many times can I uninstall and reinstall Pages before I can save a document? Only time will tell. Stay tuned.",
+        "@AppleSupport I\u2019ve only had my Mac charger for a year and it already doesn\u2019t work.... please create a warranty for these\ud83e\udd26\ud83c\udffd\u200d\u2640\ufe0f",
+        "@116333 Why can\u2019t I play purchased 4K content on my new expensive 5k display #imac ?",
+        "RIP, I guess it's time for a new laptop. @115858 @AppleSupport or something different? Need recommendations https://t.co/ZpBIZ4IbCk",
+        "As if I just paid \u00a3145 to get my MacBook repaired to come home and it have THE SAME ISSUE. @AppleSupport not happy.",
+        "@AppleSupport Did Apple decide to remove the keychain status icon from the menu bar in High Sierra but not update the Help page? https://t.co/KQgr3pS6jz",
+        "@145310 the Joyce Meyer ap hasn't worked fo a week &amp; I've re downloaded it @43065 @AppleSupport",
+        "Watch LTE, post patch and 1/2 the time I\u2019m see the dreaded red X.  Ugh!First apple product I may return.  @307140 @AppleSupport",
+        "I  recently updated to High Sierra and every single PDF reader I was using doesn't work as it used to, can't highlight single words/ can't read behind yellow highlight, how do I fix this?@AppleSupport",
+        "@AppleSupport hi I have a problem with iBooks can you fix it please"
+      ]
+    },
+    {
+      "name": "camera_and_storage_hardware",
+      "description": "I am experiencing issues with my camera function, photo library permissions, or storage reporting.",
+      "source_clusters": [
+        29
+      ],
+      "exemplars": [
+        "@AppleSupport does the iPhone X support USB 3.0 speeds for file transfers? I uploaded about 20GB of pictures in 10 min via usb #JustWondering",
+        "I have more space than actual storage in iPhone :D @AppleSupport https://t.co/BLoEvCEfhC",
+        "@AppleSupport hi ever since I updated my phone to ios11 my rear camera hasn't worked properly please help",
+        "@AppleSupport \nHi, I can\u2019t access my photo gallery from any App. I\u2019ve iOS 11.0.2 \ud83d\ude24",
+        "@AppleSupport hey my camera isn't working proper, could you help me fix it?",
+        "All of my pictures have decided to vanish from my phone @AppleSupport - what\u2019s going on?",
+        "@AppleSupport why i have this simbol in my photos? Pictures dont loading https://t.co/fCAwyc6QMw",
+        "Uh @AppleSupport all of my photos are gone from my library",
+        "my phone crashed and deleted all my pics again okay fine",
+        "All my pictures are 100% blurry and nothing will upload on anything go fuck yourself @115858 @126 \ud83e\udd17"
+      ]
+    },
+    {
+      "name": "ui_and_app_glitches",
+      "description": "I am encountering visual bugs, application crashes, missing home screen elements, or lock screen errors.",
+      "source_clusters": [
+        14,
+        16,
+        22,
+        24
+      ],
+      "exemplars": [
+        "Yo @115858 hurry up and fix this BS https://t.co/XWE2Hhs2po",
+        "@115858 11.0.2 11.0.3 have caused nothing but problems for messaging",
+        "@115858 I\ufe0f need this shit fixed. I*",
+        "Can y\u2019all pls do something about this damn bug. EYE AM TIRED @115858",
+        "@115858 yo fix this! https://t.co/yuMUHFSIq5",
+        "Fix this \ud83e\udd2c glitch wtf @115858 @123765",
+        "@115858 fix this symbol issue thing going on, bruh.",
+        "Seriously when is @115858 going to fix the text issue",
+        "D at @115858 there is something wrong with your gps program...I needed to go to a school and it took me to someone\u2019s house",
+        "@115858 what\u2019s up with the night mode not working ??"
+      ]
+    },
+    {
+      "name": "out_of_scope",
+      "description": "Messages that are spam, abusive, off-topic, or not addressed to this brand.",
+      "source_clusters": [
+        2,
+        5,
+        10
+      ],
+      "exemplars": [
+        "@AppleSupport I was late this morning ... \ud83d\ude2e https://t.co/2n7RUEYQUR",
+        "Really???? @115858 @AppleSupport #ipad #Apple https://t.co/aYWIxOZ6fa",
+        "@115858  @AppleSupport Can you PLEASE make this I\ufe0f ? INSANITY stop?!?! PLEASE!!!",
+        "@AppleSupport what the hell is this? Can't get it off. #AppleTV https://t.co/AHnJMtMMbZ",
+        "@AppleSupport Could you contact me via DM?",
+        "@AppleSupport The amount of phishing emails i\u2019m getting disguised as Apple has tripled in last 2 months\u2026 What\u2019s up with that?",
+        "@AppleSupport @115858 what is this? This proves that you have wasted your money to trouble us....accept that it is a failure https://t.co/qkUtiBSr7N",
+        "@AppleSupport I\u2019m in need of assistance again. It\u2019s more of a question.",
+        "@AppleSupport still no contact? I\u2019m just going to find better ways to tell the world what a crap product you made. #sortitout https://t.co/fqpywyVeMu",
+        "@AppleSupport @115858 wtf is this I\ufe0f"
+      ]
+    }
+  ]
+}

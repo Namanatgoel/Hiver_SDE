@@ -1,0 +1,833 @@
+% =====================================================================
+%  references.bib — Hiver SDE-intern assignment: AI customer-support agent
+%  Generated 2026-09-13. Companion to hiver-support-agent-research-map.md
+%
+%  KEY SCHEME (the "index"):  <letter><number>_<firstauthor><year><shortword>
+%     D = dataset & prior art on the corpus
+%     A = intent taxonomy / intent classification
+%     B = grounded reply drafting (retrieval / RAG / faithfulness)
+%     C = auto-handle vs escalate (abstention, deferral, calibration, routing)
+%     E = golden set / annotation / inter-annotator agreement
+%     F = LLM-as-judge & evaluation methodology
+%     G = baselines, failure analysis, benchmark design, honesty
+%     T = open-source tooling (citable as @misc)
+%
+%  Every entry carries:  note = {Index: .. . Purpose: ...}  and a url.
+%  `keywords` carries machine-readable tags (task + deliverable it serves).
+%
+%  VERIFICATION STATUS (checked this session against arXiv abstract pages,
+%  ACL Anthology PDFs, OpenAlex DOI lookups and the papers' own bib entries):
+%    - ALL 55 arXiv IDs / anthology IDs / repo URLs below were confirmed to
+%      resolve to the stated title.
+%    - Author lists marked "and others" or omitted were NOT re-verified this
+%      session. Expand them from the arXiv "Export BibTeX" button before you
+%      submit; entries needing this are flagged with  AUTHOR: EXPAND  .
+% =====================================================================
+
+
+% ===================== D. DATASET & PRIOR ART =====================
+
+@misc{D1_axelbrooke2017twcs,
+  title        = {Customer Support on Twitter (dataset)},
+  author       = {Axelbrooke, Stuart},
+  year         = {2017},
+  howpublished = {Kaggle dataset, \textasciitilde516 MB},
+  url          = {https://www.kaggle.com/datasets/thoughtvector/customer-support-on-twitter},
+  note         = {Index: D1. Purpose: Primary corpus for the assignment. Fields tweet\_id, author\_id, inbound, created\_at, text, response\_tweet\_id, in\_response\_to\_tweet\_id; phone/email already masked, so do not promise PII handling you cannot test.},
+  keywords     = {dataset, task=threads, deliverable=0}
+}
+
+@article{D2_prabhakar2018towards,
+  title        = {Towards Automated Customer Support},
+  author       = {Prabhakar, Aashish and Gupta, Animesh and Str{\"o}tgen, Jannik},
+  year         = {2018},
+  eprint       = {1809.00303},
+  archiveprefix= {arXiv},
+  primaryclass = {cs.CL},
+  url          = {https://arxiv.org/abs/1809.00303},
+  note         = {Index: D2. AUTHOR: EXPAND (list not re-verified). Purpose: The only paper on THIS corpus. Steal two hygiene rules: (1) drop replies that merely redirect to DM, (2) split by TIME (older=train, newest=test). Its BM25 retriever is your trivial baseline.},
+  keywords     = {dataset, task=threads, baseline, deliverable=0}
+}
+
+
+% ============= A. INTENT TAXONOMY & CLASSIFICATION =============
+
+@inproceedings{A1_rodriguez2024intentgpt,
+  title        = {IntentGPT: Few-shot Intent Discovery with Large Language Models},
+  author       = {Rodriguez, Juan A. and Botzer, Nicholas and Vazquez, David and Pal, Christopher and Pedersoli, Marco and Laradji, Issam},
+  booktitle    = {ICLR 2024 Workshop on LLM Agents},
+  year         = {2024},
+  eprint       = {2411.10670},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2411.10670},
+  note         = {Index: A1. Purpose: Training-free intent DISCOVERY (in-context prompt generator + intent predictor + semantic few-shot sampler). Cite for Phase 3 taxonomy induction; evaluated on CLINC and BANKING.},
+  keywords     = {task=intent, phase=3}
+}
+
+@inproceedings{A2_parikh2023zerofewshot,
+  title        = {Exploring Zero and Few-shot Techniques for Intent Classification},
+  author       = {Parikh, Soham and Vohra, Quaizar and Tumbade, Prashil and Tiwari, Mitul},
+  booktitle    = {Proceedings of ACL 2023 (Industry Track)},
+  year         = {2023},
+  eprint       = {2305.07157},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.07157},
+  note         = {Index: A2. Purpose: Four low-resource recipes compared. Two things to steal: retrieve top-5 intents by similarity to shrink the prompt; PEFT beats zero-shot with 1 example/intent. Justifies your kNN-over-fine-tuning choice.},
+  keywords     = {task=intent, phase=3, phase=4}
+}
+
+@inproceedings{A3_shin2024osic2,
+  title        = {Learning to Adapt Large Language Models to One-Shot In-Context Intent Classification on Unseen Domains},
+  author       = {Shin, Joongbo and Ahn, Youbin and Won, Seungpil and Choi, Stanley Jungkyu},
+  booktitle    = {Proceedings of the 1st Workshop on Customizable NLP (CustomNLP4U)},
+  year         = {2024},
+  url          = {https://aclanthology.org/2024.customnlp4u-1.15/},
+  note         = {Index: A3. Purpose: Their IC-collection held-in/held-out domain split is the protocol to copy when you argue your taxonomy generalises instead of memorising one brand.},
+  keywords     = {task=intent, phase=3, protocol}
+}
+
+@article{A4_casanueva2020banking77,
+  title        = {Efficient Intent Detection with Dual Sentence Encoders},
+  author       = {Casanueva, I{\~n}igo and Tem{\v{c}}inas, Tadas and Gerz, Daniela and Henderson, Matthew and Vuli{\'c}, Ivan},
+  year         = {2020},
+  eprint       = {2003.04807},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2003.04807},
+  note         = {Index: A4. Purpose: Origin of Banking77 (your optional secondary set). USE/ConveRT + 1-layer MLP beats fine-tuned BERT-Large, especially at 10 examples/intent. This is your "simple baseline" for the intent stage. Code: PolyAI-LDN/polyai-models.},
+  keywords     = {task=intent, baseline, dataset, phase=7}
+}
+
+@article{A5_fewshot2025customercare,
+  title        = {Building a Few-Shot Cross-Domain Multilingual NLU Model for Customer Care},
+  year         = {2025},
+  eprint       = {2506.04389},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2506.04389},
+  note         = {Index: A5. AUTHOR: EXPAND. Purpose: Optional stretch goal only (embedder+classifier distillation for a new market). Cite in "what I'd do with one more week" if at all.},
+  keywords     = {task=intent, stretch}
+}
+
+@article{A6_larson2019clinc150,
+  title        = {An Evaluation Dataset for Intent Classification and Out-of-Scope Prediction},
+  author       = {Larson, Stefan and others},
+  year         = {2019},
+  eprint       = {1909.02027},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/1909.02027},
+  note         = {Index: A6. AUTHOR: EXPAND. Purpose: The canonical argument for an explicit out-of-scope / none-of-the-above intent. Without it your "escalate" decision has no home in the intent layer.},
+  keywords     = {task=intent, taxonomy, phase=3}
+}
+
+
+% ========= B. GROUNDED REPLY DRAFTING (RAG / FAITHFULNESS) =========
+
+@inproceedings{B1_xu2024ragkg,
+  title        = {Retrieval-Augmented Generation with Knowledge Graphs for Customer Service Question Answering},
+  author       = {Xu, Zhentao and Cruz, Mark Jerome and Guevara, Matthew and Wang, Tie and Deshpande, Manasi and Wang, Xiaofeng and Li, Zheng},
+  booktitle    = {Proceedings of the 47th International ACM SIGIR Conference (SIGIR '24)},
+  year         = {2024},
+  eprint       = {2404.17723},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2404.17723},
+  note         = {Index: B1. Purpose: Closest published analogue to "grounded in how THIS brand historically resolved similar issues" (LinkedIn, KG over historical tickets). Copy its reporting: MRR / recall@K / NDCG@K for retrieval, reported separately from answer quality.},
+  keywords     = {task=reply, retrieval, phase=6, phase=7}
+}
+
+@article{B2_wu2026evidence,
+  title        = {Evidence-in-the-Loop: Trace-Driven Optimization for Customer-Service LLM Agents},
+  author       = {Wu, Chunming and Qiu, Dafei and Yuan, Congde and Quan, Charles and Wu, Jun and Li, Suipeng and Wu, Mo and Xie, Gavin and Chen, Hope and Yao, Max},
+  year         = {2026},
+  eprint       = {2607.18039},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2607.18039},
+  note         = {Index: B2. Purpose: THE deployed-system blueprint for this project: BM25 + issue-title vectors + issue-description vectors -> weighted RRF -> cross-encoder rerank -> LLM chooses answer/clarify/handoff. Headline: bigger LLM moved final accuracy <1pt while a distilled reranker took top-1 from 56.8\% to 75.7\%. Also gives a trace-driven failure-localisation recipe for Phase 8.},
+  keywords     = {task=reply, retrieval, reranking, phase=6, phase=8}
+}
+
+@article{B3_hong2026ral2m,
+  title        = {RAL2M: Retrieval Augmented Learning-To-Match Against Hallucination in Compliance-Guaranteed Service Systems},
+  author       = {Hong, Mengze and Jiang, Di and Wen, Jiangtao and Su, Zhiyang and Li, Yawen and Sun, Yanjie and Wang, Guan and Zhang, Chen Jason},
+  year         = {2026},
+  eprint       = {2601.02917},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2601.02917},
+  note         = {Index: B3. Purpose: The conservative alternative design -- LLM as query<->canned-answer matcher instead of free generator. Names the "judgment hallucination" failure mode and shows how to build aligned vs. misaligned test queries. Perfect citation for "what I chose NOT to build".},
+  keywords     = {task=reply, hallucination, scope, phase=8}
+}
+
+@article{B4_es2023ragas,
+  title        = {Ragas: Automated Evaluation of Retrieval Augmented Generation},
+  author       = {Es, Shahul and James, Jithin and Espinosa-Anke, Luis and Schockaert, Steven},
+  year         = {2023},
+  eprint       = {2309.15217},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2309.15217},
+  note         = {Index: B4. Purpose: Reference-free faithfulness / answer-relevance / context metrics. Gives you reply-stage metrics that do not need a gold reply (you have none for free-form text).},
+  keywords     = {task=reply, evaluation, phase=7}
+}
+
+@article{B5_gao2023alce,
+  title        = {Enabling Large Language Models to Generate Text with Citations},
+  author       = {Gao, Tianyu and Yen, Howard and Yu, Jiatong and others},
+  year         = {2023},
+  eprint       = {2305.14627},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.14627},
+  note         = {Index: B5. AUTHOR: EXPAND (4+). Purpose: If your drafts cite the historical thread they came from, this is how to MEASURE citation precision/recall. Cheap to add, looks rigorous in the report.},
+  keywords     = {task=reply, citations, evaluation, phase=7}
+}
+
+@article{B6_min2023factscore,
+  title        = {FActScore: Fine-grained Atomic Evaluation of Factual Precision in Long Form Text Generation},
+  author       = {Min, Sewon and Krishna, Kalpesh and Lyu, Xinxi and Lewis, Mike and Yih, Wen-tau and Koh, Pang Wei and Iyyer, Mohit and Zettlemoyer, Luke and Hajishirzi, Hannaneh},
+  year         = {2023},
+  eprint       = {2305.14251},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.14251},
+  note         = {Index: B6. Purpose: Atomic-fact decomposition scoring. Use it for a "did the reply invent a refund policy?" metric on brand-policy claims.},
+  keywords     = {task=reply, hallucination, evaluation, phase=7}
+}
+
+@article{B7_manakul2023selfcheckgpt,
+  title        = {SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models},
+  author       = {Manakul, Potsawee and Liusie, Adian and Gales, Mark J. F.},
+  year         = {2023},
+  eprint       = {2303.08896},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2303.08896},
+  note         = {Index: B7. Purpose: Sampling-consistency hallucination signal that needs no logprobs -- usable as an escalation FEATURE on the free tier where token logprobs may be unavailable.},
+  keywords     = {task=escalation, uncertainty, phase=6}
+}
+
+
+% ==== C. AUTO-HANDLE vs ESCALATE (abstention / deferral / routing) ====
+
+@article{C1_wen2025abstention,
+  title        = {Know Your Limits: A Survey of Abstention in Large Language Models},
+  author       = {{Wen et al.}},
+  journal      = {Transactions of the Association for Computational Linguistics},
+  year         = {2025},
+  url          = {https://aclanthology.org/2025.tacl-1.26/},
+  note         = {Index: C1. AUTHOR: EXPAND. Purpose: The map of the abstention field and the metrics you must report -- Coverage@Accuracy, risk-coverage curves, ECE-with-abstention. Read this before you design Phase 6.},
+  keywords     = {task=escalation, metrics, phase=6, phase=7}
+}
+
+@inproceedings{C2_bachar2026lpp,
+  title        = {LLM Performance Predictors: Learning When to Escalate in Hybrid Human-AI Moderation Systems},
+  author       = {Bachar, Or and Levi, Or and Mishra, Sardhendu and Levi, Adi and Minhas, Manpreet Singh and Ben-Porat, Omer and Sheetrit, Eilon and Morra, Jonathan},
+  booktitle    = {Proceedings of AAMAS 2026},
+  year         = {2026},
+  eprint       = {2601.07006},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2601.07006},
+  note         = {Index: C2. Purpose: Learns a meta-model over logprobs/entropy + uncertainty-attribution features, reporting accuracy-vs-cost trade-offs. Their attribution idea = your "stated reason" for escalation (empty retrieval vs. ambiguous policy).},
+  keywords     = {task=escalation, phase=6, reasons}
+}
+
+@article{C3_actorescalate2026,
+  title        = {Act or Escalate? Evaluating Escalation Behavior in Automation with Language Models},
+  year         = {2026},
+  eprint       = {2604.08588},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2604.08588},
+  note         = {Index: C3. AUTHOR: EXPAND. Purpose: Formalises exactly the assignment's decision: implement (cost c\_w if wrong) vs. escalate (cost c\_l), escalating when estimated P(correct) < tau, across 8 models/4 families. Use its cost table in your risk-coverage plot.},
+  keywords     = {task=escalation, cost, phase=6, phase=8}
+}
+
+@article{C4_multiexpert2022defer,
+  title        = {Learning to Defer to Multiple Experts: Consistent Surrogate Losses, Confidence Calibration, and Conformal Ensembles},
+  year         = {2022},
+  eprint       = {2210.16955},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2210.16955},
+  note         = {Index: C4. AUTHOR: EXPAND. Purpose: Deferral with MULTIPLE experts (different human queues) + calibration + conformal ensembles. Cite if you route to different teams rather than one generic "human".},
+  keywords     = {task=escalation, deferral, phase=6}
+}
+
+@article{C5_mozannar2020defer,
+  title        = {Consistent Estimators for Learning to Defer to an Expert},
+  author       = {Mozannar, Hussein and others},
+  year         = {2020},
+  eprint       = {2006.01862},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2006.01862},
+  note         = {Index: C5. AUTHOR: EXPAND. Purpose: The foundational "who should answer" loss. Pre-cutoff but it is the origin of the vocabulary your reviewers expect.},
+  keywords     = {task=escalation, deferral, foundational}
+}
+
+@article{C6_angelopoulos2021conformal,
+  title        = {A Gentle Introduction to Conformal Prediction and Distribution-Free Uncertainty Quantification},
+  author       = {Angelopoulos, Anastasios N. and Bates, Stephen},
+  year         = {2021},
+  eprint       = {2107.07511},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2107.07511},
+  note         = {Index: C6. Purpose: Lets you say "we auto-handle the X\% of messages with a statistical guarantee of <=Y\% error" instead of picking 0.4 by vibes. Highest value-per-page upgrade for Phase 6.},
+  keywords     = {task=escalation, calibration, phase=6}
+}
+
+@article{C7_xiong2023uncertainty,
+  title        = {Can LLMs Express Their Uncertainty? An Empirical Evaluation of Confidence Elicitation in LLMs},
+  author       = {Xiong, Miao and Hu, Zhiyuan and Lu, Xinyang and Li, Yifei and Fu, Jie and He, Junxian and Hooi, Bryan},
+  year         = {2023},
+  eprint       = {2306.13063},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2306.13063},
+  note         = {Index: C7. Purpose: Verbalised confidence is poorly calibrated -- do not build your escalation gate on "the model said 90\% sure".},
+  keywords     = {task=escalation, calibration, phase=6}
+}
+
+@article{C8_tian2023justask,
+  title        = {Just Ask for Calibration: Strategies for Eliciting Calibrated Confidence Scores from Language Models Fine-Tuned with Human Feedback},
+  year         = {2023},
+  eprint       = {2305.14975},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.14975},
+  note         = {Index: C8. AUTHOR: EXPAND. Purpose: RLHF models' verbal probabilities are better calibrated than token probabilities in some settings -- know which signal your provider actually returns before you threshold it.},
+  keywords     = {task=escalation, calibration, phase=6}
+}
+
+@article{C9_kuhn2023semanticunc,
+  title        = {Semantic Uncertainty: Linguistic Invariances for Uncertainty Estimation in Natural Language Generation},
+  author       = {Kuhn, Lorenz and Gal, Yarin and Farquhar, Sebastian},
+  year         = {2023},
+  eprint       = {2302.09664},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2302.09664},
+  note         = {Index: C9. Purpose: Cluster sampled generations by meaning, use cluster entropy as confidence. The practical confidence score for free-form replies, where token entropy is meaningless.},
+  keywords     = {task=escalation, uncertainty, phase=6}
+}
+
+@inproceedings{C10_ding2024hybridllm,
+  title        = {Hybrid LLM: Cost-Efficient and Quality-Aware Query Routing},
+  author       = {Ding, Dujian and others},
+  booktitle    = {International Conference on Learning Representations (ICLR)},
+  year         = {2024},
+  eprint       = {2404.14618},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2404.14618},
+  note         = {Index: C10. AUTHOR: EXPAND. Purpose: Router that sends easy queries to a small model, hard ones to a big one, with a quality-aware objective. Same maths as auto-handle vs. escalate.},
+  keywords     = {task=escalation, routing, cost, phase=6}
+}
+
+@article{C11_ong2024routellm,
+  title        = {RouteLLM: Learning to Route LLMs with Preference Data},
+  author       = {Ong, Isaac and others},
+  year         = {2024},
+  eprint       = {2406.18665},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2406.18665},
+  note         = {Index: C11. AUTHOR: EXPAND. Purpose: Precedent that "routing quality" is a measurable, reportable number (~95\% of GPT-4 quality at a fraction of the cost). Cite when you report your router's operating point.},
+  keywords     = {task=escalation, routing, cost, phase=6}
+}
+
+@article{C12_chen2023frugalgpt,
+  title        = {FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance},
+  author       = {Chen, Lingjiao and Zaharia, Matei and Zou, James},
+  year         = {2023},
+  eprint       = {2305.05176},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.05176},
+  note         = {Index: C12. Purpose: Cascades with learned confidence thresholds. Cite for the cost side of your escalation table and for the cascade fallback chain in your LLM gateway.},
+  keywords     = {task=escalation, cost, infra}
+}
+
+@inproceedings{C13_rebedea2023nemoguardrails,
+  title        = {NeMo Guardrails: A Toolkit for Controllable and Safe LLM Applications with Programmable Rails},
+  author       = {Rebedea, Traian and Dinu, Razvan and Sreedhar, Makesh and Parisien, Christopher and Cohen, Jonathan},
+  booktitle    = {Proceedings of EMNLP 2023 (System Demonstrations / Industry)},
+  year         = {2023},
+  eprint       = {2310.10501},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2310.10501},
+  note         = {Index: C13. Purpose: Deterministic rails + a hallucination rail that intercepted 70-95\% of unanswerable prompts. The citation for "escalate by rule, not by vibes" (brand safety, competitor mentions, legal threats).},
+  keywords     = {task=escalation, guardrails, phase=6}
+}
+
+@inproceedings{C14_dong2024guardrails,
+  title        = {Building Guardrails for Large Language Models},
+  author       = {Dong, Yi and Mu, Ronghui and Jin, Gaojie and Qi, Yi and Hu, Jinwei and Zhao, Xingyu and Meng, Jie and Ruan, Wenjie and Huang, Xiaowei},
+  booktitle    = {Proceedings of the 41st International Conference on Machine Learning (ICML), PMLR 235},
+  year         = {2024},
+  eprint       = {2402.01822},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2402.01822},
+  note         = {Index: C14. Purpose: Short position paper surveying Llama Guard / NeMo / Guardrails AI and their gaps. Good "I know the landscape" citation.},
+  keywords     = {task=escalation, guardrails, related-work}
+}
+
+
+% ======= E. GOLDEN SET / ANNOTATION / INTER-ANNOTATOR AGREEMENT =======
+
+@article{E1_consensus2026iaa,
+  title        = {Counting on Consensus: Selecting the Right Inter-annotator Agreement Metric for NLP Annotation and Evaluation},
+  year         = {2026},
+  eprint       = {2603.06865},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2603.06865},
+  note         = {Index: E1. AUTHOR: EXPAND. Purpose: Which agreement coefficient fits which task type, how label imbalance and missing labels distort it, and how to report CIs and disagreement patterns. Cite when you justify kappa/alpha on your golden set.},
+  keywords     = {task=annotation, metrics, phase=5}
+}
+
+@inproceedings{E2_alttest2025annotator,
+  title        = {The Alternative Annotator Test for LLM-as-a-Judge: How to Justify Replacing Human Annotators with LLM Judges},
+  booktitle    = {Proceedings of ACL 2025},
+  year         = {2025},
+  url          = {https://aclanthology.org/2025.acl-long.782/},
+  note         = {Index: E2. AUTHOR: EXPAND. Purpose: A statistical yes/no procedure (leave-one-annotator-out majority vote + inverse-probability weighting) for "can this judge replace a human annotator?". This is the strongest available answer to the assignment's "evidence your judge agrees with a human".},
+  keywords     = {task=judge, agreement, phase=7}
+}
+
+@article{E3_beyond2025groundtruth,
+  title        = {Beyond Agreement: Rethinking Ground Truth in Educational AI Annotation},
+  year         = {2025},
+  eprint       = {2508.00143},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2508.00143},
+  note         = {Index: E3. AUTHOR: EXPAND. Purpose: High IAA can hide bad labels; low IAA can mean real ambiguity. Expert adjudication + LLM error-detection ensembles raise label quality. Directly usable in your "how I sampled and labelled" note.},
+  keywords     = {task=annotation, phase=5}
+}
+
+@article{E4_whoannotates2026,
+  title        = {Who Annotates in NLP? A Large-scale Assessment of Human Annotation Reporting between 2018 and 2025},
+  year         = {2026},
+  eprint       = {2606.02255},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2606.02255},
+  note         = {Index: E4. AUTHOR: EXPAND. Purpose: Shows what good annotation reporting looks like (two-stage adjudication, 3 annotators, consensus gold). Copy the structure into your golden-set write-up.},
+  keywords     = {task=annotation, reporting, phase=5}
+}
+
+
+% ============ F. LLM-AS-JUDGE & EVALUATION METHODOLOGY ============
+
+@inproceedings{F1_zheng2023mtbench,
+  title        = {Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena},
+  author       = {Zheng, Lianmin and others},
+  booktitle    = {Advances in Neural Information Processing Systems (NeurIPS), Datasets and Benchmarks Track},
+  year         = {2023},
+  eprint       = {2306.05685},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2306.05685},
+  note         = {Index: F1. AUTHOR: EXPAND. Purpose: The canonical LLM-judge paper -- reports agreement with humans AND names position / verbosity / self-enhancement bias. Baseline citation for any judge rubric you write.},
+  keywords     = {task=judge, phase=7}
+}
+
+@inproceedings{F2_liu2023geval,
+  title        = {G-Eval: NLG Evaluation using GPT-4 with Better Human Alignment},
+  author       = {Liu, Yang and others},
+  booktitle    = {Proceedings of EMNLP 2023},
+  year         = {2023},
+  eprint       = {2303.16634},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2303.16634},
+  note         = {Index: F2. AUTHOR: EXPAND. Purpose: Rubric + chain-of-thought + probability-weighted scoring -- the standard recipe behind most custom-rubric judges, incl. DeepEval's G-Eval metric.},
+  keywords     = {task=judge, rubric, phase=7}
+}
+
+@article{F3_kim2023prometheus,
+  title        = {Prometheus: Inducing Fine-grained Evaluation Capability in Language Models},
+  author       = {Kim, Seungone and others},
+  year         = {2023},
+  eprint       = {2310.08491},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2310.08491},
+  note         = {Index: F3. AUTHOR: EXPAND. Purpose: Open evaluator LM trained on custom criteria -- lets you run your judge without paying an API, which matters for a reproducible 15-minute harness on an RTX 5050.},
+  keywords     = {task=judge, local-model, phase=7}
+}
+
+@article{F4_kim2024prometheus2,
+  title        = {Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models},
+  author       = {Kim, Seungone and Suk, Juyoung and Longpre, Shayne and Lin, Bill Yuchen and Shin, Jamin and Welleck, Sean and Neubig, Graham and Lee, Moontae and Lee, Kyungjae and Seo, Minjoon},
+  year         = {2024},
+  eprint       = {2405.01535},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2405.01535},
+  note         = {Index: F4. Purpose: Unified direct-assessment + pairwise open evaluator with the best human agreement among open evaluators. Your local fallback judge: 7B at Q4 fits in 8GB VRAM.},
+  keywords     = {task=judge, local-model, phase=7}
+}
+
+@article{F5_verga2024jury,
+  title        = {Replacing Judges with Juries: Evaluating LLM Generations with a Panel of Diverse Models},
+  author       = {Verga, Pat and others},
+  year         = {2024},
+  eprint       = {2404.18796},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2404.18796},
+  note         = {Index: F5. AUTHOR: EXPAND. Purpose: A panel of small models votes instead of one big judge -- cheaper and less intra-model bias. Very implementable: Gemini Flash + Groq Llama + local Prometheus-2.},
+  keywords     = {task=judge, jury, phase=7}
+}
+
+@article{F6_wang2023unfair,
+  title        = {Large Language Models are not Fair Evaluators},
+  author       = {Wang, Peiyi and others},
+  year         = {2023},
+  eprint       = {2305.17926},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2305.17926},
+  note         = {Index: F6. AUTHOR: EXPAND. Purpose: Order flips change verdicts. Swap candidate order and average -- two lines of code, large credibility win in the report.},
+  keywords     = {task=judge, bias, phase=7}
+}
+
+@article{F7_positionbias2024judging,
+  title        = {Judging the Judges: A Systematic Study of Position Bias in LLM-as-a-Judge},
+  year         = {2024},
+  eprint       = {2406.07791},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2406.07791},
+  note         = {Index: F7. AUTHOR: EXPAND. Purpose: Defines repetition stability / position consistency / preference fairness, and shows bias grows when the quality gap is SMALL -- i.e. exactly when you compare agent vs. simple baseline.},
+  keywords     = {task=judge, bias, phase=7}
+}
+
+@article{F8_judgesurvey2024,
+  title        = {A Survey on LLM-as-a-Judge},
+  year         = {2024},
+  eprint       = {2411.15594},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2411.15594},
+  note         = {Index: F8. AUTHOR: EXPAND. Purpose: Organises the field into agreement-with-humans / bias / adversarial robustness. Use its taxonomy as the outline of your judge section.},
+  keywords     = {task=judge, related-work, phase=7}
+}
+
+@article{F9_judgesurvey2024b,
+  title        = {LLMs-as-Judges: A Comprehensive Survey on LLM-based Evaluation Methods},
+  year         = {2024},
+  eprint       = {2412.05579},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2412.05579},
+  note         = {Index: F9. AUTHOR: EXPAND. Purpose: Aggregation strategies (jury voting, Bayesian win-rate sampling, Dawid-Skene) if you calibrate multiple judges into one score.},
+  keywords     = {task=judge, aggregation, phase=7}
+}
+
+@article{F10_nofreelabels2025,
+  title        = {No Free Labels: Limitations of LLM-as-a-Judge Without Human Grounding},
+  year         = {2025},
+  eprint       = {2503.05061},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2503.05061},
+  note         = {Index: F10. AUTHOR: EXPAND. Purpose: Judges fail hardest on items they could not answer themselves; giving the judge a human reference answer raises agreement and reduces self-preference bias. So: hand your judge the brand's real historical reply as reference.},
+  keywords     = {task=judge, reference, phase=7}
+}
+
+@article{F11_debias2026judging,
+  title        = {Judging the Judges: A Systematic Evaluation of Bias Mitigation Strategies in LLM-as-a-Judge Pipelines},
+  year         = {2026},
+  eprint       = {2604.23178},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2604.23178},
+  note         = {Index: F11. AUTHOR: EXPAND. Purpose: Benchmarks debiasing strategies with bootstrap CIs, human agreement rate and Cohen's kappa, plus a cost-accuracy table. Copy their reporting format for your judge section.},
+  keywords     = {task=judge, bias, reporting, phase=7}
+}
+
+
+% == G. BASELINES, FAILURE ANALYSIS, BENCHMARK DESIGN, HONESTY ==
+
+@article{G1_miller2024errorbars,
+  title        = {Adding Error Bars to Evals: A Statistical Approach to Language Model Evaluations},
+  author       = {Miller, Evan},
+  year         = {2024},
+  eprint       = {2411.00640},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2411.00640},
+  note         = {Index: G1. Purpose: MANDATORY for your "what is misleading about my headline number" section. Treats eval items as drawn from a super-population; gives CIs, paired model comparisons, and how to plan an eval. At n=200 your accuracy CI is roughly +/-6-7 points -- say so and show it.},
+  keywords     = {evaluation, statistics, phase=7, phase=8}
+}
+
+@inproceedings{G2_cemri2025mast,
+  title        = {Why Do Multi-Agent LLM Systems Fail?},
+  author       = {Cemri, Mert and Pan, Melissa Z. and Yang, Shuyi and Agrawal, Lakshya A. and Chopra, Bhavya and Tiwari, Rishabh and Keutzer, Kurt and Parameswaran, Aditya and Klein, Dan and Ramchandran, Kannan and Zaharia, Matei and Gonzalez, Joseph E. and Stoica, Ion},
+  booktitle    = {Advances in Neural Information Processing Systems (NeurIPS) 2025, Datasets and Benchmarks Track},
+  year         = {2025},
+  eprint       = {2503.13657},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2503.13657},
+  note         = {Index: G2. Purpose: 14 failure modes / 3 categories over 1,600+ annotated traces, taxonomy built via IAA studies (kappa=0.88) plus a validated LLM annotator (kappa~0.77-0.79 out of domain). Borrow the METHOD so your top-5 failure modes are derived, not invented. Data + annotator open-sourced.},
+  keywords     = {failure-analysis, phase=8}
+}
+
+@inproceedings{G3_yao2024taubench,
+  title        = {$\tau$-bench: A Benchmark for Tool-Agent-User Interaction in Real-World Domains},
+  author       = {Yao, Shunyu and Shinn, Noah and Razavi, Pedram and Narasimhan, Karthik},
+  booktitle    = {International Conference on Learning Representations (ICLR)},
+  year         = {2025},
+  eprint       = {2406.12045},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2406.12045},
+  note         = {Index: G3. Purpose: Introduces pass^k -- run the same task k times, all must succeed. gpt-4o cleared <50\% of tasks and pass^8 <25\% in retail. The single best antidote to a misleading headline: 85\% accuracy is not 85\% reliability.},
+  keywords     = {reliability, evaluation, phase=7, phase=8}
+}
+
+@article{G4_barres2025tau2bench,
+  title        = {$\tau^2$-Bench: Evaluating Conversational Agents in a Dual-Control Environment},
+  author       = {Barres, Victor and Dong, Honghua and Ray, Soham and Si, Xujie and Narasimhan, Karthik},
+  year         = {2025},
+  eprint       = {2506.07982},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2506.07982},
+  note         = {Index: G4. Purpose: Extends tau-bench to settings where the USER also has tools -- closer to Twitter support, where the customer can act themselves.},
+  keywords     = {reliability, evaluation, phase=8}
+}
+
+@article{G4b_shi2026tauknowledge,
+  title        = {$\tau$-Knowledge: Evaluating Conversational Agents over Unstructured Knowledge},
+  author       = {Shi, Quan and Zytek, Alexandra and Razavi, Pedram and Narasimhan, Karthik and Barres, Victor},
+  year         = {2026},
+  eprint       = {2603.04370},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2603.04370},
+  note         = {Index: G4b. Purpose: Latest tau-family benchmark, focused on answering over unstructured knowledge -- the closest match to "retrieve from the brand's messy tweet history".},
+  keywords     = {retrieval, evaluation, phase=8}
+}
+
+@article{G5_balaji2026journeybench,
+  title        = {Beyond IVR: Benchmarking Customer Support LLM Agents for Business-Adherence},
+  author       = {Balaji, Sumanth and Mishra, Piyush and Sachdeva, Aashraya and Agrawal, Suraj},
+  year         = {2026},
+  eprint       = {2601.00596},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2601.00596},
+  note         = {Index: G5. Purpose: 703 conversations, graph-structured SOPs, User Journey Coverage Score for policy adherence. Shows a Dynamic-Prompt agent beats Static-Prompt enough that GPT-4o-mini > GPT-4o -- structure beats model size. Great "one more week" citation.},
+  keywords     = {policy, evaluation, phase=8}
+}
+
+@article{G6_gao2025olabench,
+  title        = {Benchmarking and Learning Real-World Customer Service Dialogue},
+  author       = {Gao, Tianhong and Shen, Jundong and Wang, Jiapeng and Shi, Bei and Ju, Ying and Yao, Junfeng and Yu, Huiyu},
+  year         = {2025},
+  eprint       = {2510.22143},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2510.22143},
+  note         = {Index: G6. Purpose: Industrial benchmark decomposing service quality into Dialogue Quality, Policy Compliance, Tool Calling, Critical Business Risk, Hallucination, Latency -- and reports human-transfer rate as a first-class metric. Copy that metric set for your rubric.},
+  keywords     = {metrics, rubric, phase=7}
+}
+
+@inproceedings{G7_atreya2026distress,
+  title        = {Helping Customers in Distress: An LLM-powered Agent that Converses, Probes, and Routes},
+  author       = {Atreya, Alankar and Wanger, Stefan Sylvius and Batra, Devesh and Hankache, Robert and Iglesias, Cristovao and Sinclair, Patrick and Pelosio, Giulio and McMillan, Michael and Cowan, Greig A. and Khraishi, Raad},
+  booktitle    = {International Conference on Learning Representations (ICLR)},
+  year         = {2026},
+  eprint       = {2605.16268},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2605.16268},
+  note         = {Index: G7. Purpose: Deployed banking triage agent -- multi-turn probing before classifying, policy-guided routing, layered guardrails, evaluated with synthetic "digital twin" customers (+30.6\% classification accuracy). Honest limitation worth echoing: automated eval agreed with humans only ~60\% on subjective traits (empathy, frustration).},
+  keywords     = {deployed-system, triage, phase=6, phase=8}
+}
+
+@article{G8_huang2024crmarena,
+  title        = {CRMArena: Understanding the Capacity of LLM Agents to Perform Professional CRM Tasks in Realistic Environments},
+  author       = {Huang, Kung-Hsiang and Prabhakar, Akshara and Dhawan, Sidharth and Mao, Yixin and Wang, Huan and Savarese, Silvio and Xiong, Caiming and Laban, Philippe and Wu, Chien-Sheng},
+  year         = {2024},
+  eprint       = {2411.02305},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2411.02305},
+  note         = {Index: G8. Purpose: Realistic CRM objects (account, order, case, knowledge article) and 9 service tasks; shows where agents break on rule-following.},
+  keywords     = {benchmark, phase=8}
+}
+
+@article{G8b_crmarenapro2025,
+  title        = {CRMArena-Pro: Holistic Assessment of LLM Agents Across Diverse Business Scenarios and Interactions},
+  year         = {2025},
+  eprint       = {2505.18878},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2505.18878},
+  note         = {Index: G8b. AUTHOR: EXPAND. Purpose: Follow-up numbers worth quoting -- ~58\% single-turn success, dropping to ~35\% multi-turn. Concrete evidence that multi-turn is where support agents break.},
+  keywords     = {benchmark, phase=8}
+}
+
+@inproceedings{G9_chen2021abcd,
+  title        = {Action-Based Conversations Dataset: A Corpus for Building More In-Depth Task-Oriented Dialogue Systems},
+  author       = {Chen, Derek and Chen, Howard and Yang, Yi and Lin, Alex and Yu, Zhou},
+  booktitle    = {Proceedings of NAACL-HLT 2021},
+  year         = {2021},
+  eprint       = {2104.00783},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2104.00783},
+  note         = {Index: G9. Purpose: 10,042 human agent<->customer conversations with 55 intents AND the agent actions taken. Best free proxy for "how did a human resolve this" -- use it to sanity-check your discovered taxonomy against a real support workflow. Data: github.com/asappresearch/abcd.},
+  keywords     = {dataset, taxonomy-check, phase=3}
+}
+
+@article{G10_khattab2023dspy,
+  title        = {DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines},
+  author       = {Khattab, Omar and Singhvi, Arnav and Maheshwari, Paridhi and Zhang, Zhiyuan and Santhanam, Keshav and Vardhamanan, Sri and Haq, Saiful and Sharma, Ashutosh and Joshi, Thomas T. and Moazam, Hanna and Miller, Heather and Zaharia, Matei and Potts, Christopher},
+  year         = {2023},
+  eprint       = {2310.03714},
+  archiveprefix= {arXiv},
+  url          = {https://arxiv.org/abs/2310.03714},
+  note         = {Index: G10. Purpose: If you optimise prompts/demonstrations automatically against your metric, cite this instead of claiming ad-hoc prompt engineering. Companion optimiser: MIPROv2 (arXiv:2406.11695).},
+  keywords     = {infra, prompting, phase=6}
+}
+
+
+% ================== T. OPEN-SOURCE TOOLING ==================
+% Licences marked (unverified) come from 2026 comparison articles, not from the
+% repo itself -- open the repo before you rely on them.
+
+@misc{T01_ragas,
+  title        = {Ragas: evaluation framework for RAG pipelines},
+  author       = {{explodinggradients}},
+  howpublished = {\url{https://github.com/explodinggradients/ragas}},
+  url          = {https://github.com/explodinggradients/ragas},
+  year         = {2026},
+  note         = {Index: T01. Apache-2.0. Purpose: faithfulness / answer-relevance / context metrics for the reply stage. Paper: B4.},
+  keywords     = {tool, evaluation}
+}
+
+@misc{T02_deepeval,
+  title        = {DeepEval: pytest-style LLM evaluation framework},
+  author       = {{Confident AI}},
+  howpublished = {\url{https://github.com/confident-ai/deepeval}},
+  url          = {https://github.com/confident-ai/deepeval},
+  year         = {2026},
+  note         = {Index: T02. Apache-2.0 (unverified). Purpose: your eval harness as CI-runnable tests, incl. G-Eval custom rubrics. Paper: F2.},
+  keywords     = {tool, evaluation, ci}
+}
+
+@misc{T03_promptfoo,
+  title        = {promptfoo: declarative LLM evals and red-teaming},
+  author       = {{promptfoo}},
+  howpublished = {\url{https://github.com/promptfoo/promptfoo}},
+  url          = {https://github.com/promptfoo/promptfoo},
+  year         = {2026},
+  note         = {Index: T03. MIT (unverified). Purpose: YAML-driven prompt/model comparison and regression gates; good for the baseline-vs-agent table.},
+  keywords     = {tool, evaluation, ci}
+}
+
+@misc{T04_langfuse,
+  title        = {Langfuse: open-source LLM observability},
+  author       = {{Langfuse}},
+  howpublished = {\url{https://github.com/langfuse/langfuse}},
+  url          = {https://github.com/langfuse/langfuse},
+  year         = {2026},
+  note         = {Index: T04. MIT core (unverified). Purpose: traces + datasets + prompt versioning; makes "reproduce headline results in 15 minutes" credible.},
+  keywords     = {tool, tracing}
+}
+
+@misc{T05_phoenix,
+  title        = {Arize Phoenix: OpenTelemetry-native LLM tracing and evals},
+  author       = {{Arize AI}},
+  howpublished = {\url{https://github.com/Arize-ai/phoenix}},
+  url          = {https://github.com/Arize-ai/phoenix},
+  year         = {2026},
+  note         = {Index: T05. Elastic License v2 -- source-available, NOT OSI open source (unverified). Purpose: local trace inspection and embedding drift.},
+  keywords     = {tool, tracing}
+}
+
+@misc{T06_labelstudio,
+  title        = {Label Studio: multi-type data annotation tool},
+  author       = {{HumanSignal}},
+  howpublished = {\url{https://github.com/HumanSignal/label-studio}},
+  url          = {https://github.com/HumanSignal/label-studio},
+  year         = {2026},
+  note         = {Index: T06. Apache-2.0 (verified via GitHub API 2026-09-13: 28,252 stars, last push 2026-09-11). Purpose: building and adjudicating your 150-250-example golden set with real multi-annotator workflows.},
+  keywords     = {tool, annotation, phase=5}
+}
+
+@misc{T07_argilla,
+  title        = {Argilla: human-feedback and annotation UI},
+  author       = {{Argilla}},
+  howpublished = {\url{https://github.com/argilla-io/argilla}},
+  url          = {https://github.com/argilla-io/argilla},
+  year         = {2026},
+  note         = {Index: T07. Apache-2.0 (unverified). Purpose: LLM-in-the-loop adjudication UI; nicer than a spreadsheet for double annotation.},
+  keywords     = {tool, annotation, phase=5}
+}
+
+@misc{T08_taubench,
+  title        = {tau-bench: tool-agent-user interaction benchmark (code and data)},
+  author       = {{Sierra Research}},
+  howpublished = {\url{https://github.com/sierra-research/tau-bench}},
+  url          = {https://github.com/sierra-research/tau-bench},
+  year         = {2024},
+  note         = {Index: T08. MIT. Purpose: user simulator + policy + tools harness and the pass^k metric. Steal the evaluation SHAPE, not the score. Papers: G3, G4.},
+  keywords     = {tool, benchmark, phase=7}
+}
+
+@misc{T09_mast,
+  title        = {MAST: Multi-Agent System Failure Taxonomy (data + LLM annotator)},
+  author       = {{multi-agent-systems-failure-taxonomy}},
+  howpublished = {\url{https://github.com/multi-agent-systems-failure-taxonomy/MAST}},
+  url          = {https://github.com/multi-agent-systems-failure-taxonomy/MAST},
+  year         = {2025},
+  note         = {Index: T09. Purpose: failure-mode annotation pipeline you can point at your own traces. Paper: G2.},
+  keywords     = {tool, failure-analysis, phase=8}
+}
+
+@misc{T10_polyai,
+  title        = {polyai-models: dual-encoder intent detection (Banking77)},
+  author       = {{PolyAI}},
+  howpublished = {\url{https://github.com/PolyAI-LDN/polyai-models}},
+  url          = {https://github.com/PolyAI-LDN/polyai-models},
+  year         = {2020},
+  note         = {Index: T10. Purpose: reference implementation for your "simple baseline" intent classifier. Paper: A4.},
+  keywords     = {tool, baseline, phase=7}
+}
+
+@misc{T11_abcd,
+  title        = {ABCD: Action-Based Conversations Dataset (data)},
+  author       = {{ASAPP Research}},
+  howpublished = {\url{https://github.com/asappresearch/abcd}},
+  url          = {https://github.com/asappresearch/abcd},
+  year         = {2021},
+  note         = {Index: T11. Purpose: 10k real support dialogues with 55 intents and agent actions; taxonomy sanity check. Paper: G9.},
+  keywords     = {tool, dataset, phase=3}
+}
+
+@misc{T12_nemoguardrails,
+  title        = {NeMo Guardrails: programmable rails for LLM apps},
+  author       = {{NVIDIA}},
+  howpublished = {\url{https://github.com/NVIDIA/NeMo-Guardrails}},
+  url          = {https://github.com/NVIDIA/NeMo-Guardrails},
+  year         = {2023},
+  note         = {Index: T12. Licence: check repo. Purpose: deterministic + hallucination rails for the escalation layer. Paper: C13.},
+  keywords     = {tool, guardrails, phase=6}
+}
+
+@misc{T13_guardrailsai,
+  title        = {Guardrails AI: validators and structured-output guarantees},
+  author       = {{Guardrails AI}},
+  howpublished = {\url{https://github.com/guardrails-ai/guardrails}},
+  url          = {https://github.com/guardrails-ai/guardrails},
+  year         = {2026},
+  note         = {Index: T13. Licence: check repo (unverified). Purpose: machine-checkable output validation -- e.g. enforce that every escalation carries a reason code.},
+  keywords     = {tool, guardrails, phase=6}
+}
+
+@misc{T14_prometheuseval,
+  title        = {prometheus-eval: open evaluator LMs and rubrics},
+  author       = {{Prometheus-Eval}},
+  howpublished = {\url{https://github.com/prometheus-eval/prometheus-eval}},
+  url          = {https://github.com/prometheus-eval/prometheus-eval},
+  year         = {2024},
+  note         = {Index: T14. Purpose: weights + code for your LOCAL judge (runs on 8GB at 4-bit). Papers: F3, F4.},
+  keywords     = {tool, judge, local-model, phase=7}
+}
+
+@misc{T15_chatwoot,
+  title        = {Chatwoot: open-source customer engagement / support inbox},
+  author       = {{Chatwoot}},
+  howpublished = {\url{https://github.com/chatwoot/chatwoot}},
+  url          = {https://github.com/chatwoot/chatwoot},
+  year         = {2026},
+  note         = {Index: T15. MIT community edition (unverified). Purpose: read it to see how a real product models conversations, macros and human handoff -- the destination of your "escalate" decision.},
+  keywords     = {tool, reference-architecture}
+}
+
+@misc{T16_ollama,
+  title        = {Ollama: run open-weight models locally},
+  author       = {{Ollama}},
+  howpublished = {\url{https://github.com/ollama/ollama}},
+  url          = {https://github.com/ollama/ollama},
+  year         = {2026},
+  note         = {Index: T16. Purpose: local provider for the judge/generator fallback chain. RTX 50-series needs driver 570.xx+ and CUDA 12.8; build llama.cpp with -DCMAKE\_CUDA\_ARCHITECTURES=120 (CUDA 13.x breaks the Blackwell MMQ kernel).},
+  keywords     = {tool, local-model, infra}
+}
+
+@misc{T17_lmeharness,
+  title        = {lm-evaluation-harness: standard academic LLM benchmarks},
+  author       = {{EleutherAI}},
+  howpublished = {\url{https://github.com/EleutherAI/lm-evaluation-harness}},
+  url          = {https://github.com/EleutherAI/lm-evaluation-harness},
+  year         = {2026},
+  note         = {Index: T17. MIT (unverified). Purpose: only if you want standard benchmarks alongside your custom ones.},
+  keywords     = {tool, evaluation}
+}

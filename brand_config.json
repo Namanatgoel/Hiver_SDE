@@ -1,0 +1,68 @@
+{
+  "brand_handle": "applesupport",
+  "time_split_cutoff": "2017-11-15",
+  "train_inbound_count": 80506,
+  "test_inbound_count": 26117,
+  "top_brands": [
+    {
+      "handle": "amazonhelp",
+      "outbound_count": 169840,
+      "mention_count": 137356,
+      "in_known_list": true
+    },
+    {
+      "handle": "applesupport",
+      "outbound_count": 106860,
+      "mention_count": 98799,
+      "in_known_list": true
+    },
+    {
+      "handle": "uber_support",
+      "outbound_count": 56270,
+      "mention_count": 47519,
+      "in_known_list": true
+    },
+    {
+      "handle": "spotifycares",
+      "outbound_count": 43265,
+      "mention_count": 31608,
+      "in_known_list": true
+    },
+    {
+      "handle": "delta",
+      "outbound_count": 42253,
+      "mention_count": 46592,
+      "in_known_list": true
+    },
+    {
+      "handle": "tesco",
+      "outbound_count": 38573,
+      "mention_count": 34625,
+      "in_known_list": true
+    },
+    {
+      "handle": "americanair",
+      "outbound_count": 36764,
+      "mention_count": 51339,
+      "in_known_list": true
+    },
+    {
+      "handle": "tmobilehelp",
+      "outbound_count": 34317,
+      "mention_count": 22222,
+      "in_known_list": true
+    },
+    {
+      "handle": "comcastcares",
+      "outbound_count": 33031,
+      "mention_count": 23537,
+      "in_known_list": true
+    },
+    {
+      "handle": "british_airways",
+      "outbound_count": 29361,
+      "mention_count": 31519,
+      "in_known_list": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+<View>
+  <Text name="message" value="$first_customer_message"/>
+  <Header value="Thread: $thread_id | Predicted: $predicted_intent ($model_confidence)"/>
+  
+  <Choices name="correct_intent" toName="message" choice="single" showInLine="true">
+    <Choice value="out_of_scope"/>
+    <!-- Intents will be populated from intent_taxonomy.json -->
+    <Choice value="battery_issues_and_drain"/>
+    <Choice value="keyboard_and_autocorrect_bugs"/>
+    <Choice value="software_update_and_installation_issues"/>
+    <Choice value="system_performance_and_freezing"/>
+    <Choice value="network_and_connectivity_issues"/>
+    <Choice value="audio_and_sound_issues"/>
+    <Choice value="accounts_passwords_and_security"/>
+    <Choice value="billing_disputes_and_purchases"/>
+    <Choice value="media_and_digital_services"/>
+    <Choice value="mac_and_hardware_repairs"/>
+    <Choice value="camera_and_storage_hardware"/>
+    <Choice value="ui_and_app_glitches"/>
+    <Choice value="out_of_scope"/>
+  </Choices>
+  
+  <Choices name="should_escalate" toName="message" choice="single" showInLine="true">
+    <Header value="Should escalate?"/>
+    <Choice value="True"/>
+    <Choice value="False"/>
+  </Choices>
+  
+  <Choices name="difficulty" toName="message" choice="single" showInLine="true">
+    <Header value="Difficulty"/>
+    <Choice value="easy"/>
+    <Choice value="medium"/>
+    <Choice value="hard"/>
+  </Choices>
+  
+  <TextArea name="notes" toName="message" placeholder="Optional notes..." rows="2"/>
+</View>
