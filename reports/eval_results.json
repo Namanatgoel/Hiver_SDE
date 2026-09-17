@@ -1,0 +1,63 @@
+{
+  "dataset": {
+    "path": "data/golden/golden_set.csv",
+    "total_examples": 200,
+    "brand": "applesupport"
+  },
+  "proposed_agent": {
+    "intent_accuracy": 0.725,
+    "intent_accuracy_ci": {
+      "point": 0.725,
+      "lower": 0.665,
+      "upper": 0.785,
+      "n_resamples": 2000
+    },
+    "intent_macro_f1": 0.7788676729655832,
+    "escalation_accuracy": 0.46,
+    "escalation_accuracy_ci": {
+      "point": 0.46,
+      "lower": 0.385,
+      "upper": 0.525,
+      "n_resamples": 2000
+    },
+    "escalation_precision": 0.33793103448275863,
+    "escalation_recall": 0.8032786885245902,
+    "escalation_f1": 0.47572815533980584,
+    "unnecessary_escalation_rate": 0.6906474820143885,
+    "reason_code_distribution": {
+      "low_calibrated_confidence": 102,
+      "auto_handle": 55,
+      "policy_sensitive": 20,
+      "out_of_scope_query": 12,
+      "billing_legal": 10,
+      "competitor_abuse": 1
+    }
+  },
+  "baselines": {
+    "trivial": {
+      "intent_accuracy": 0.11,
+      "intent_accuracy_ci": {
+        "point": 0.11,
+        "lower": 0.07,
+        "upper": 0.155,
+        "n_resamples": 2000
+      },
+      "escalation_f1": 0.4674329501915709
+    },
+    "simple": {
+      "intent_accuracy": 0.225,
+      "intent_accuracy_ci": {
+        "point": 0.225,
+        "lower": 0.17,
+        "upper": 0.285,
+        "n_resamples": 2000
+      },
+      "escalation_f1": 0.1643835616438356
+    }
+  },
+  "judge_evaluation": {
+    "status": "UNVERIFIED",
+    "reason": "Run with --judge flag to execute LLM jury evaluation (requires API keys, ~150 calls).",
+    "sample_size": 50
+  }
+}

@@ -79,7 +79,6 @@ env/
 *.log
 logs/
 wandb/
-reports/eval_results.json
 reports/figures/
 
 # === OS and IDE Files ===

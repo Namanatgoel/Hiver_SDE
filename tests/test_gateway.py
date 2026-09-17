@@ -73,10 +73,12 @@ def test_cache_hit_costs_zero_calls(isolated_cache, monkeypatch):
 
     msgs = [{"role": "user", "content": "test cache"}]
     params = {}
-    key = _cache_key("gemini", "gemini-2.5-flash", msgs, params)
+    import src.llm.gateway as gw
+    model = gw.DEFAULT_MODELS["gemini"]
+    key = _cache_key("gemini", model, msgs, params)
 
     # Seed the cache manually
-    _save_cache(key, "gemini", "gemini-2.5-flash", "cached response", "test")
+    _save_cache(key, "gemini", model, "cached response", "test")
 
     call_count = {"n": 0}
     def fake_call(*args, **kwargs):

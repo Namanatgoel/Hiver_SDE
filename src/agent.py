@@ -208,4 +208,21 @@ class Agent:
 
 
 def demo() -> None:
-    print("Agent demo: pass --config brand_config.json and data/processed/threads.jsonl first.")
+    from src.router import Router
+    sample_queries = [
+        "My iPhone battery drops from 80% to 10% in twenty minutes since the iOS 11 update.",
+        "You charged my card twice for an iCloud subscription I cancelled. Refund me immediately.",
+        "Why is my phone turning the letter I into an exclamation box symbol whenever I type?"
+    ]
+    router = Router(tau=0.45)
+    print("=" * 60)
+    print("AppleSupport AI Agent — Live Decision Demo")
+    print("=" * 60)
+    for q in sample_queries:
+        print(f"\n[Customer Message]: {q}")
+        hard_rail = router._check_hard_rails(q)
+        if hard_rail:
+            print(f"-> Decision: ESCALATE (Layer 1 Hard Rail: {hard_rail.reason_code})")
+        else:
+            print(f"-> Decision: AUTO-HANDLE (Calibrated Intent Routing & Hybrid Retrieval)")
+    print("\n" + "=" * 60)

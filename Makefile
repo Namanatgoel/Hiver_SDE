@@ -5,7 +5,7 @@ CONDA_ENV  := hiver_sde
 PYTHON     := conda run -n $(CONDA_ENV) python
 PIP        := conda run -n $(CONDA_ENV) pip
 
-.PHONY: help env torch data smoke test eval report run clean
+.PHONY: help env torch data smoke test eval eval-judge report run clean
 
 help:
 	@echo "Targets:"
@@ -14,7 +14,8 @@ help:
 	@echo "  data    — symlink dataset into data/raw/"
 	@echo "  smoke   — Phase 0 gateway smoke test (3 calls → 0 warm calls)"
 	@echo "  test    — run full pytest suite"
-	@echo "  eval    — run evaluation on full golden set"
+	@echo "  eval    — run evaluation on golden set (fast, no judge calls)"
+	@echo "  eval-judge — run evaluation + LLM jury judge (~150 API calls)"
 	@echo "  report  — regenerate REPORT.md from reports/eval_results.json"
 	@echo "  run     — run the agent on a single message (for demos)"
 	@echo "  clean   — remove __pycache__ and .pytest_cache"
@@ -38,6 +39,9 @@ test:
 
 eval:
 	$(PYTHON) scripts/06_evaluate.py
+
+eval-judge:
+	$(PYTHON) scripts/06_evaluate.py --judge
 
 report:
 	$(PYTHON) scripts/09_build_report.py
